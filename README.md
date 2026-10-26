@@ -1,1 +1,1 @@
-# projet-oteria-mathh
+# projet-oteria-math
