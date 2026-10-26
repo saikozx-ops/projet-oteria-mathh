@@ -57,6 +57,6 @@ def fenetre():
  
     fenetre.mainloop()
  
- 
+#teste
 fenetre()
  
