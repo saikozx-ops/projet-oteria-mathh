@@ -20,16 +20,24 @@ def genmdp(nb_caractere, maj, chiffre, special):
     lettres_majuscules = list(string.ascii_uppercase)
     chiffres = list(string.digits)
     caracteres_speciaux = list(string.punctuation)
+<<<<<<< HEAD
 
     listefinal = []
     listefinal += lettres_minuscules
 
+=======
+ 
+    listefinal = []
+    listefinal += lettres_minuscules
+ 
+>>>>>>> parent of 3250c3a (plus de doublon d'affiler + j'ai commenter pour vos beaux petit yeux)
     if maj == "O":
         listefinal += lettres_majuscules
     if chiffre == "O":
         listefinal += chiffres
     if special == "O":
         listefinal += caracteres_speciaux
+<<<<<<< HEAD
 
     nb_caracteres_disponibles = len(listefinal)
 
@@ -48,6 +56,15 @@ def genmdp(nb_caractere, maj, chiffre, special):
 
     mot_de_passe_finale = "".join(mot_de_passe)
 
+=======
+ 
+ 
+    mot_de_passe = []
+    for i in range(nb_caractere):
+       mot_de_passe.append(random.choice(listefinal))
+ 
+    mot_de_passe_finale = "".join(mot_de_passe)
+>>>>>>> parent of 3250c3a (plus de doublon d'affiler + j'ai commenter pour vos beaux petit yeux)
     return mot_de_passe_finale
 
 def calcul_entropie(mdp):
@@ -87,6 +104,7 @@ def entropie(nb_caractere, maj, chiffre, special):
         if special == "O":
             listefinal += caracteres_speciaux
 
+<<<<<<< HEAD
         E = (math.log2(len(listefinal)))*nb_caractere
         return E
 
@@ -97,10 +115,21 @@ def fenetre():
     fenetre.title("Generateur de mots de passe")
     fenetre.geometry("600x350")
 
+=======
+        E = (math.log2(len(listefinal)))*y
+        return E
+ 
+def fenetre():
+ 
+    fenetre = tk.Tk()
+    fenetre.title("Générateur de mots de passe")
+ 
+>>>>>>> parent of 3250c3a (plus de doublon d'affiler + j'ai commenter pour vos beaux petit yeux)
     maj = tk.StringVar(value="N")
     chiffre = tk.StringVar(value="N")
     special = tk.StringVar(value="N")
     E = tk.StringVar(value="N")
+<<<<<<< HEAD
 
     resultat = tk.StringVar()
     entropie_calcule = tk.StringVar()
@@ -160,3 +189,35 @@ def fenetre():
 
 if __name__ == "__main__":
     fenetre()
+=======
+    resultat = tk.StringVar()
+ 
+    tk.Label(fenetre, text="Longueur :").pack()
+    longueur = tk.Scale(fenetre, from_=8, to=24, orient="horizontal")
+    longueur.pack()
+    fenetre.geometry("600x300")
+    tk.Checkbutton(fenetre, text="Majuscules", variable=maj, onvalue="O", offvalue="N").pack()
+    tk.Checkbutton(fenetre, text="Chiffres", variable=chiffre, onvalue="O", offvalue="N").pack()
+    tk.Checkbutton(fenetre, text="Symboles", variable=special, onvalue="O", offvalue="N").pack()
+    tk.Checkbutton(fenetre, text="antropie", variable=E, onvalue="O", offvalue="N").pack()
+    tk.Label(fenetre, text="<moins de 36 bits, Pas sécurisé>").pack()
+    tk.Label(fenetre, text="<36 à 59 bits, bof>").pack()
+    tk.Label(fenetre, text="<60 bits et +, sécurisé>").pack()
+ 
+    def generer():
+        mot_de_passe_finale = genmdp(longueur.get(), maj.get(), chiffre.get(), special.get())
+        entropie_finale = entropie(longueur.get(), maj.get(), chiffre.get(), special.get(), E.get())
+        if E.get() == "O":
+            resultat.set(f"{mot_de_passe_finale}   |   Entropie : {entropie_finale:.1f} bits")
+        else:
+            resultat.set(mot_de_passe_finale)
+ 
+    tk.Button(fenetre, text="Générer", command=generer).pack()
+    tk.Entry(fenetre, textvariable=resultat, width=80).pack()
+ 
+    fenetre.mainloop()
+ 
+#teste
+fenetre()
+ 
+>>>>>>> parent of 3250c3a (plus de doublon d'affiler + j'ai commenter pour vos beaux petit yeux)
