@@ -75,7 +75,7 @@ def fenetre():
     resultat = tk.StringVar()               # CRÉE UNE VARI A   ABLE POUR COTENIR DU TEXTE
  
     tk.Label(fenetre, text="Longueur :").pack()   #txt
-    longueur = tk.Scale(fenetre, from_=8, to=24, orient="horizontal") # mesure des ecritures
+    longueur = tk.Scale(fenetre, from_=8, to=24, orient="horizontal") # taille de la barre pour le nb de caract
     longueur.pack()       # permet d'afficher le widjet avec la barre qui deroule, bugé sur linux mais sur windows marche donc pas touche
     fenetre.geometry("600x300")   # taille fenetre
     tk.Checkbutton(fenetre, text="Majuscules", variable=maj, onvalue="O", offvalue="N").pack()  # permetde chosir si oui ou non
