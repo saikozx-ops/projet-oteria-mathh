@@ -6,16 +6,19 @@ import time
 import math
 import os
 from ttkthemes import ThemedTk
-import tkinter as tk
 from tkinter import ttk
-from ttkthemes import ThemedTk
+from pathlib import Path
+import pathlib
 
-def save(mdp):   #marche pas a reparer
-    if not os.path.exists("save"):
-        os.mkdir("save")
+def save(mdp):
+    dossier = os.path.join(os.path.dirname(os.path.abspath(__file__)), "save")   # chemin dossier save 
+    os.makedirs(dossier, exist_ok=True)    # crée le dossier si il exisqte pas 
 
-    with open("save/mots2passe.txt", "a", encoding="UTF-8") as fichier:
-        fichier.write(mdp + "\n")
+    chemin = os.path.join(dossier, "mots2passe.txt")   # construit le chemain du fichier 
+    with open(chemin, "a", encoding="UTF-8") as fichier:  #  append dans le fichier pour pas ecrire par dessus 
+        fichier.write(mdp + "\n")  # a la ligne pour uqe chaque mdp soit a la ligne
+
+    print("Sauvegardé dans :", chemin)  #teste
 
 
 def genmdp(nb_caractere, maj, chiffre, special):
