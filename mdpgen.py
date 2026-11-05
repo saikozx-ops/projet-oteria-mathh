@@ -5,7 +5,10 @@ import string
 import time
 import math
 import os
-
+from ttkthemes import ThemedTk
+import tkinter as tk
+from tkinter import ttk
+from ttkthemes import ThemedTk
 
 def save(mdp):   #marche pas a reparer
     if not os.path.exists("save"):
@@ -91,7 +94,7 @@ def entropie(nb_caractere, maj, chiffre, special, E):
 
 def fenetre():
 
-    fenetre = tk.Tk()  #crée la fenetre
+    fenetre = ThemedTk(theme="equilux", themebg=True)  #crée la fenetre
     fenetre.title("Générateur de mots de passe")      # titre fenetre
 
     maj = tk.StringVar(value="N")        # value des case sur non de base
@@ -99,30 +102,39 @@ def fenetre():
     special = tk.StringVar(value="N")
     E = tk.StringVar(value="N")         # same
     resultat = tk.StringVar()               # CRÉE UNE VARI A   ABLE POUR COTENIR DU TEXTE
-    entropie_calcule = tk.StringVar()
+    entropie_calcule = tk.StringVar() 
     text2variable = tk.StringVar()
-    tk.Label(fenetre, text="Longueur :").pack()   #txt
-    longueur = tk.Scale(fenetre, from_=8, to=24, orient="horizontal") # taille de la barre pour le nb de caract
+    
+    ttk.Label(fenetre, text="Longueur :").pack()   #txt
+    longueur = tk.Scale(fenetre, from_=8, to=24, orient="horizontal",bg="#464646", fg="white", troughcolor="#5a5a5a", highlightthickness=0) # taille de la barre pour le nb de caract
     longueur.pack()       # permet d'afficher le widjet avec la barre qui deroule, bugé sur linux mais sur windows marche donc pas touche
     fenetre.geometry("600x300")   # taille fenetre
 
-    tk.Checkbutton(fenetre, text="Majuscules", variable=maj, onvalue="O", offvalue="N").pack()  # permetde chosir si oui ou non
-    tk.Checkbutton(fenetre, text="Chiffres", variable=chiffre, onvalue="O", offvalue="N").pack()
-    tk.Checkbutton(fenetre, text="Symboles", variable=special, onvalue="O", offvalue="N").pack()
-    tk.Checkbutton(fenetre, text="entropie", variable=E, onvalue="O", offvalue="N").pack()
+    ttk.Checkbutton(fenetre, text="Majuscules", variable=maj, onvalue="O", offvalue="N").pack()  # permetde chosir si oui ou non
+    ttk.Checkbutton(fenetre, text="Chiffres", variable=chiffre, onvalue="O", offvalue="N").pack()
+    ttk.Checkbutton(fenetre, text="Symboles", variable=special, onvalue="O", offvalue="N").pack()
+    ttk.Checkbutton(fenetre, text="entropie", variable=E, onvalue="O", offvalue="N").pack()
 
-    tk.Label(fenetre, text="<moins de 36 bits, Pas sécurisé>").pack() # txt
-    tk.Label(fenetre, text="<36 à 59 bits, bof>").pack()
-    tk.Label(fenetre, text="<60 bits et +, sécurisé>").pack()    #txt
+    ttk.Label(fenetre, text="<moins de 36 bits, Pas sécurisé>").pack() # txt
+    ttk.Label(fenetre, text="<36 à 59 bits, bof>").pack()
+    ttk.Label(fenetre, text="<60 bits et +, sécurisé>").pack()    #txt
 
     def calcule():
         mdp = entropie_calcule.get()
         if not mdp:
             text2variable.set("Veuillez entrer un mot de passe.")
             return
+        ento = calcul_entropie(mdp)
+        a=[]
+        if ento < 36:
+            a = "mot de passe non sécurisé" 
+        elif ento < 59:
+            a = "mot de passe moyen"
+        else:
+            a = "mot de passe fort" 
 
         calculte2entropie = calcul_entropie(mdp)
-        text2variable.set(f"Entropie théorique estimée : {calculte2entropie:.1f} bits")
+        text2variable.set(f"Entropie théorique estimée : {calculte2entropie:.1f} bits, {a}")
 
     def generer():
         mot_de_passe_finale = genmdp(longueur.get(), maj.get(), chiffre.get(), special.get())   #  envoie les info pour gen le mdp
@@ -134,15 +146,22 @@ def fenetre():
             resultat.set(mot_de_passe_finale)            # set que mdp si entropie pas activé
 
 
-    tk.Button(fenetre, text="Générer", command=generer).pack()    #bouton
-    tk.Entry(fenetre, textvariable=resultat, width=80).pack()    # endroit ou le texte apparait
-    tk.Button(fenetre, text="Sauvegarder", command=lambda: save(resultat.get())).pack() #recup mdp
-    tk.Label(fenetre, text="Calculer l'entropie d'un mot de passe :").pack(pady=5) #txt
-    tk.Entry(fenetre, textvariable=entropie_calcule, width=80).pack()   # mdp a entrer ici pour entropie
-    tk.Button(fenetre, text="Calculer Entropie", command=calcule).pack()   # bonton entropie
-    tk.Label(fenetre, textvariable=text2variable).pack(pady=5)         # affiche entropie du mdp donner
+    ttk.Button(fenetre, text="Générer", command=generer).pack()    #bouton
+    ttk.Entry(fenetre, textvariable=resultat, width=80).pack()    # endroit ou le texte apparait
+    ttk.Button(fenetre, text="Sauvegarder", command=lambda: save(resultat.get())).pack() #recup mdp
+    ttk.Label(fenetre, text="Calculer l'entropie d'un mot de passe :").pack(pady=5) #txt
+    ttk.Entry(fenetre, textvariable=entropie_calcule, width=80).pack()   # mdp a entrer ici pour entropie
+    ttk.Button(fenetre, text="Calculer Entropie", command=calcule).pack()   # bonton entropie
+    ttk.Label(fenetre, textvariable=text2variable).pack(pady=5)         # affiche entropie du mdp donner
 
     fenetre.mainloop() 
 
 
 fenetre()
+
+
+
+
+
+
+
