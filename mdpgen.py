@@ -12,9 +12,9 @@ import pathlib
 
 def save(mdp):
     dossier = os.path.join(os.path.dirname(os.path.abspath(__file__)), "save")   # chemin dossier save 
-    os.makedirs(dossier, exist_ok=True)    # crée le dossier si il exisqte pas 
+    os.makedirs(dossier, exist_ok=True)    # crée le dossier si il existe pas 
 
-    chemin = os.path.join(dossier, "mots2passe.txt")   # construit le chemain du fichier 
+    chemin = os.path.join(dossier, "mots2passe.txt")   # construit le chemin du fichier 
     with open(chemin, "a", encoding="UTF-8") as fichier:  #  append dans le fichier pour pas ecrire par dessus 
         fichier.write(mdp + "\n")  # a la ligne pour uqe chaque mdp soit a la ligne
 
@@ -116,11 +116,11 @@ def fenetre():
     ttk.Checkbutton(fenetre, text="Majuscules", variable=maj, onvalue="O", offvalue="N").pack()  # permetde chosir si oui ou non
     ttk.Checkbutton(fenetre, text="Chiffres", variable=chiffre, onvalue="O", offvalue="N").pack()
     ttk.Checkbutton(fenetre, text="Symboles", variable=special, onvalue="O", offvalue="N").pack()
-    ttk.Checkbutton(fenetre, text="entropie", variable=E, onvalue="O", offvalue="N").pack()
+    ttk.Checkbutton(fenetre, text="Entropie", variable=E, onvalue="O", offvalue="N").pack()
 
     ttk.Label(fenetre, text="<moins de 36 bits, Pas sécurisé>").pack() # txt
-    ttk.Label(fenetre, text="<36 à 59 bits, bof>").pack()
-    ttk.Label(fenetre, text="<60 bits et +, sécurisé>").pack()    #txt
+    ttk.Label(fenetre, text="<36 à 59 bits, Bof>").pack()
+    ttk.Label(fenetre, text="<60 bits et +, Sécurisé>").pack()    #txt
 
     def calcule():
         mdp = entropie_calcule.get()
